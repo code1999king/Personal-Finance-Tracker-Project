@@ -1,0 +1,7 @@
+# output folders:
+**/bin/
+**/obj/
+**/out/
+
+# other files :
+.vs/
