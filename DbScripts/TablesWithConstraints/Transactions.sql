@@ -1,5 +1,7 @@
 
 
+USE PFT_DB;
+
 -- Transactions table :
 CREATE TABLE Transactions (
 	TransactionID INT IDENTITY(1,1) NOT NULL,

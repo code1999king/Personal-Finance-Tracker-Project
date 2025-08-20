@@ -1,4 +1,6 @@
 
+USE PFT_DB;
+
 -- ExpenseCategories table :
 CREATE TABLE ExpenseCategories (
 	ExpenseCategoryID INT IDENTITY(1,1) NOT NULL,

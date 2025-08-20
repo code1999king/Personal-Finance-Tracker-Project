@@ -1,4 +1,6 @@
 
+USE PFT_DB;
+
 -- Users table :
 CREATE TABLE Users (
 	UserID INT IDENTITY(1,1) NOT NULL,

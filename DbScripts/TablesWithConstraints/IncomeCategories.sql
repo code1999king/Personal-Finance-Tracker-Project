@@ -1,4 +1,6 @@
 
+USE PFT_DB;
+
 -- IncomeCategories table :
 CREATE TABLE IncomeCategories (
 	IncomeCategoryID INT IDENTITY(1,1) NOT NULL,
