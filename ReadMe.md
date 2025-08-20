@@ -53,6 +53,18 @@ For more details about database design, see [Database Documentation](Docs/Databa
 
 ---
 
+## Prerequisites
+Before running the project, make sure you have the following installed:
+- **Windows 10**
+- **.NET Framework (v4.7.2 or later)**
+- **Visual Studio 2022 (v17.x or later)** with `.NET desktop development` workload
+- **SQL Server 2022 Developer Edition (16.x or later)**
+- **SQL Server Management Studio (SSMS) (20.2 or later)**
+- **NuGet packages:** (restored automatically by Visual Studio)
+  - `BCrypt.Net-Next` for password hashing.
+
+---
+
 ## Installation Steps
 > *Coming soon with V1.0*.
 
