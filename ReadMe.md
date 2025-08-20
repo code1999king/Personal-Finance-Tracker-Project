@@ -4,7 +4,7 @@
 
 ## Overview
 **Personal Finance Tracker** is a simple desktop application, 
-helps individuals to manage and track their balance and financial transactions.
+helps individuals manage and track their balance and financial transactions.
 
 ---
 
@@ -27,7 +27,7 @@ helps individuals to manage and track their balance and financial transactions.
 
 | Layer                     |   Namespace      | Technology Used |
 | :---------                |  :-------------  | : ------------- |
-| Presentation Layer        | Presentation     | windows Forms   |
+| Presentation Layer        | Presentation     | Windows Forms   |
 | Business Logic Layer      | BusinessLogic    | C# .NET Framework |
 | Data Access Layer         | DataAccess       | ADO.NET, SQL Server |
 
@@ -42,8 +42,8 @@ In addition to the three layers:
 The application uses a relational database with four tables, focusing on simplicity and data integrity.  
 **Key design highlights:**
 * User specific data is supported, by having `UserID` foreign key in tables.
-* **Un-categorized transactions** are supported, by keeping both `ExpenseCategoryID` and `IncomeCategoryID` foreign keys nullable.
-* Current balance is cached in Users table to optimize performance, and reduce calculations.
+* **Uncategorized transactions** are supported, by keeping both `ExpenseCategoryID` and `IncomeCategoryID` foreign keys nullable.
+* The current balance is cached in thr `Users` table to optimize performance, and avoid repeated calculations.
 * Negative amount -> Transaction is considered as **expense**, and can't be linked to income category.
 * Positive amount -> Transaction is considered as **income**, and can't be linked to expense category.
 

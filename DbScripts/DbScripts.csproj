@@ -41,8 +41,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Database.sql" />
+    <Content Include="TablesWithConstraints\ExpenseCategories.sql" />
+    <Content Include="TablesWithConstraints\IncomeCategories.sql" />
+    <Content Include="TablesWithConstraints\Transactions.sql" />
+    <Content Include="TablesWithConstraints\Users.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
