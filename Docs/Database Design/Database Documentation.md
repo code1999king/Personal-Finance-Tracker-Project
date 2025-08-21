@@ -21,7 +21,7 @@ to securely store user's data, including their profile info, financial transacti
 
 ## Important Notes
 Please read the following notes before dealing with the database:
-* `Users.CurrentBalance` must be **recalculated** after any change in `Transactions` table.
+* `Users.CurrentBalance` must be **updated** after any change in `Transactions` table.
 * When **retrieving user's current balance** you should use `Users.CurrentBalance` to reduce calculations and optimize performance.
 * The following columns **shouldn't be modified** after creation:
 	* `Users.RegisteredAt`

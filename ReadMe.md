@@ -40,13 +40,16 @@ In addition to the three layers:
 ---
 
 ## Database Design
-The application uses a relational database with four tables, focusing on simplicity and data integrity.  
+The application uses a relational database with four tables, focusing on simplicity and data integrity.
+
 **Key design highlights:**
-* User specific data is supported, by having `UserID` foreign key in tables.
-* **Uncategorized transactions** are supported, by keeping both `ExpenseCategoryID` and `IncomeCategoryID` foreign keys nullable.
-* The current balance is cached in the `Users` table to optimize performance, and avoid repeated calculations.
-* Negative amount -> Transaction is considered as **expense**, and can't be linked to income category.
-* Positive amount -> Transaction is considered as **income**, and can't be linked to expense category.  
+* **Strong database constraints** (ensure data integrity at the database level and reduce reliance on BLL validation).
+* **Support for uncategorized transactions** (by keeping both `ExpenseCategoryID` and `IncomeCategoryID` foreign keys nullable).
+* **Cached current balance** (improves performance, and avoids unnecessary repeated calculations).
+
+**`Transactions` table design clarifications:**
+* Negative amount -> Transaction is considered an **expense** -> can not link to an income category (enforced by constraint).
+* Positive amount -> Transaction is considered an **income** -> can not link to an expense category (enforced by constraint).
 
 ![Database ERD Diagram](Docs/Database%20Design/ERD.drawio.svg)
 For more details about database design, see [Database Documentation](Docs/Database%20Design/Database%20Documentation.md)
