@@ -64,7 +64,7 @@ For more details about database design, see [Database Documentation](Docs/Databa
 * **Comprehensive error handling and logging**.
 * **Secure resource management** (automatic disposal of database connections and unmanaged resources).
 
-> *More documentation will be provided while project developement*;
+> *More documentation will be provided during project developement*;
 
 ---
 
