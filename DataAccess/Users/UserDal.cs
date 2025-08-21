@@ -92,32 +92,41 @@ namespace DataAccess.Users
         }
 
         /// <summary>
-        /// Checks user existence by user name and password hash.
+        /// Retrieves user's login data (UserID, PasswordHash) for login verification.
         /// </summary>
         /// <param name="username">User's name</param>
-        /// <param name="passwordHash">User's password after being hashed</param>
-        /// <returns><see cref="DalResult{T}"/>object contains boolean result indicates user existence</returns>
-        public static DalResult<bool> ExistsByUsernameAndPasswordHash(string username, string passwordHash)
+        /// <returns><see cref="DalResult{T}"/>object contains <see cref="UserLoginDto"/> object</returns>
+        public static DalResult<UserLoginDto> GetUserLoginByUsername(string username)
         {
-            string query = @"SELECT 1 FROM Users WHERE Username = @Username AND PasswordHash = @PasswordHash;";
+            string query = @"SELECT UserID, PasswordHash FROM Users 
+                             WHERE Username = @Username";
             using (SqlConnection conn = new SqlConnection(DalSettings.ConnectionString))
             {
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@Username", username);
-                    cmd.Parameters.AddWithValue("@PasswordHash", passwordHash);
                     try
                     {
                         conn.Open();
                         using (SqlDataReader reader = cmd.ExecuteReader())
                         {
-                            return DalResult<bool>.Success(reader.HasRows);
+                            if(reader.HasRows)
+                            {
+                                int userID = (int)reader["UserID"];
+                                string passwordHash = (string)reader["PaswordHash"];
+                                UserLoginDto userLoginDto = new UserLoginDto(userID, passwordHash);
+                                return DalResult<UserLoginDto>.Success(userLoginDto);
+                            }
+                            else
+                            {
+                                return DalResult<UserLoginDto>.Failure(DalError.NotFound);
+                            }
                         }
                     }
                     catch (Exception ex)
                     {
                         DalLogger.Log(ex, $"Username = {username}");
-                        return DalResult<bool>.Failure(DalError.Error);
+                        return DalResult<UserLoginDto>.Failure(DalError.Error);
                     }
                 }
             }
