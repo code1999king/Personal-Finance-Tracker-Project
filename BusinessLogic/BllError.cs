@@ -8,5 +8,10 @@ namespace BusinessLogic
     public enum BllError
     {
         Error,
+
+        // User errors:
+        InvalidUsername,
+        TooLongPassword,
+        TooShortPassword,
     }
 }
