@@ -27,7 +27,7 @@ helps individuals manage and track their balance and financial transactions.
 **Personal Finance Tracker** is built on three tier architecture approach, which is divided into three layers:  
 
 | Layer                     |   Namespace      | Technology Used |
-| :---------                |  :-------------  | : ------------- |
+| :---------                |  :-------------  | :------------- |
 | Presentation Layer        | Presentation     | Windows Forms   |
 | Business Logic Layer      | BusinessLogic    | C# .NET Framework |
 | Data Access Layer         | DataAccess       | ADO.NET, SQL Server |
