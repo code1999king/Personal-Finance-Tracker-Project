@@ -53,6 +53,18 @@ For more details about database design, see [Database Documentation](Docs/Databa
 
 ---
 
+## Data Access Layer Design
+**Data Access Layer (DAL)** represents the bridge between the application and database, which contains the required CRUD methods.
+
+**Key features:**
+* **Elegant output contract** (Standarized operation results via DalResult class).
+* **Comprehensive error handling and logging**.
+* **Secure resource management** (automatic disposal of database connections and unmanaged resources).
+
+> *More documentation will be provided while project developement*;
+
+---
+
 ## Prerequisites
 Before running the project, make sure you have the following installed:
 - **Windows 10**
