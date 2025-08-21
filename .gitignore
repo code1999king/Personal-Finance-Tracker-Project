@@ -3,5 +3,8 @@
 **/obj/
 **/out/
 
+# NuGet packages:
+packages/
+
 # other files :
 .vs/
