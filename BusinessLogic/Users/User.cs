@@ -8,6 +8,12 @@ namespace BusinessLogic.Users
     public class User
     {
         /// <summary>
+        /// User's save mode.
+        /// See <see cref="SaveMode"/> for more details."/>
+        /// </summary>
+        private SaveMode _SaveMode { get; set; }
+
+        /// <summary>
         /// User's identifier.
         /// </summary>
         public int UserID { get; set; }
@@ -32,6 +38,7 @@ namespace BusinessLogic.Users
         /// </summary>
         public User()
         {
+            _SaveMode = SaveMode.AddNew;
             UserID = -1;
             Username = "";
             RegisteredAt = DateTime.Now;
@@ -39,7 +46,7 @@ namespace BusinessLogic.Users
         }
 
         /// <summary>
-        /// Creates user object with predefined values. Private access modifier prevents creating a full user object from outside this class.
+        /// Creates user object with predefined values came from database. Private access modifier prevents creating a full user object from outside this class.
         /// </summary>
         /// <param name="userID"></param>
         /// <param name="username"></param>
@@ -47,6 +54,7 @@ namespace BusinessLogic.Users
         /// <param name="currentBalance"></param>
         private User(int userID, string username, DateTime registeredAt, decimal currentBalance)
         {
+            _SaveMode = SaveMode.Update;
             UserID = userID;
             Username = username;
             RegisteredAt = registeredAt;
