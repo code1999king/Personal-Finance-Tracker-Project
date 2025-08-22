@@ -19,7 +19,7 @@ namespace BusinessLogic.Users
         /// <summary>
         /// User's identifier.
         /// </summary>
-        public int UserID { get; set; }
+        public int UserID { get; private set; }
 
         /// <summary>
         /// User's username.
@@ -29,12 +29,12 @@ namespace BusinessLogic.Users
         /// <summary>
         /// User's registration date.
         /// </summary>
-        public DateTime RegisteredAt { get; set; }
+        public DateTime RegisteredAt { get; private set; }
 
         /// <summary>
         /// User's current balance.
         /// </summary>
-        public decimal CurrentBalance { get; set; }
+        public decimal CurrentBalance { get; private set; }
 
         /// <summary>
         /// Creates empty user object, allows you to fill it later.
