@@ -82,15 +82,15 @@ namespace BusinessLogic.Users
             }
 
             // Verify user password:
-            if (!BCrypt.Net.BCrypt.Verify(rawPassword, loginRes.Value.PasswordHash))
+            if (!PasswordHasher.VerifyPassword(rawPassword, loginRes.Value.PasswordHash))
                 return BllResult<int>.Failure(BllError.WrongUsernameOrPassword);
 
             // Authintaction successfull:
             return BllResult<int>.Success(loginRes.Value.UserID);
         }
-        
+
         /// <summary>
-        /// Creates User domain object
+        /// Creates User domain object, where it takes user ID from userID parameter and other information from UserDto object parameter.
         /// </summary>
         /// <param name="userID"></param>
         /// <param name="userDto"></param>
@@ -99,6 +99,21 @@ namespace BusinessLogic.Users
         {
             return new User(
                 userID: userID,
+                username: userDto.Username,
+                registeredAt: userDto.RegisteredAt,
+                currentBalance: userDto.CurrentBalance
+                );
+        }
+
+        /// <summary>
+        /// Creates User domain object
+        /// </summary>
+        /// <param name="userDto"></param>
+        /// <returns></returns>
+        private static User _MapToUser(UserDto userDto)
+        {
+            return new User(
+                userID: userDto.UserID,
                 username: userDto.Username,
                 registeredAt: userDto.RegisteredAt,
                 currentBalance: userDto.CurrentBalance
@@ -140,10 +155,8 @@ namespace BusinessLogic.Users
                 return BllResult<User>.Failure(BllError.Error);
             }
 
-            // Create user object from Dto:
-            UserDto userDto = getRes.Value;
-            User user = new User(userDto.UserID, userDto.Username, userDto.RegisteredAt, userDto.CurrentBalance);
-            return BllResult<User>.Success(user);
+            // Create user object from Dto and return it:
+            return BllResult<User>.Success(_MapToUser(getRes.Value));
         }
 
         /// <summary>
@@ -170,8 +183,7 @@ namespace BusinessLogic.Users
             if (!getRes.IsSuccess) 
                 return BllResult<User>.Failure(BllError.Error); // can't be not found!!
 
-            User user = getRes.Value; // for clarity
-            return BllResult<User>.Success(user);
+            return BllResult<User>.Success(getRes.Value);
 
         }
 
@@ -190,7 +202,7 @@ namespace BusinessLogic.Users
 
             // Prepare new user info:
             UserDto userDto = _CreateUserDtoForRegistration(username);
-            string passwordHash = BCrypt.Net.BCrypt.HashPassword(rawPassword);
+            string passwordHash = PasswordHasher.HashPassword(rawPassword);
 
             // Add New user to database:
             DalResult<int> addRes = UserDal.AddNewUser(userDto, passwordHash);
