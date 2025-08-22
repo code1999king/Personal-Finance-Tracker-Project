@@ -1,6 +1,8 @@
 ﻿
 
 using System.Text;
+using DataAccess;
+using DataAccess.Users;
 
 namespace BusinessLogic.Users
 {
@@ -55,6 +57,23 @@ namespace BusinessLogic.Users
         {
             return ValidateUsername(username)
                 ?? ValidateRawPassword(rawPassword);
+        }
+
+        public static BllError? _ValidateUsernameNotReserved(string username)
+        {
+            DalResult<bool> existsRes = UserDal.ExistsByUsername(username);
+            if (!existsRes.IsSuccess)
+                return BllError.Error;
+            if (existsRes.Value) // username exists
+                return BllError.UsernameReserved;
+            return null;
+        }
+
+        public static BllError? ValidateRegisterRules(string username, string rawPassword)
+        {
+            return ValidateUsername(username)
+                ?? ValidateRawPassword(rawPassword)
+                ?? _ValidateUsernameNotReserved(username);
         }
     }
 }

@@ -16,5 +16,6 @@ namespace BusinessLogic
         TooShortPassword,
         WrongUsernameOrPassword,
         UserNotFound,
+        UsernameReserved,
     }
 }

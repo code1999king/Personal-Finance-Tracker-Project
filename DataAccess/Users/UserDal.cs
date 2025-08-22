@@ -131,5 +131,35 @@ namespace DataAccess.Users
                 }
             }
         }
+
+        /// <summary>
+        /// Checks user's existence by username
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns><see cref="DalResult{T}"/> object contains boolean value represents user existence</returns>
+        public static DalResult<bool> ExistsByUsername(string username)
+        {
+            string query = @"SELECT 1 FROM Users WHERE Username = @Username;";
+            using (SqlConnection conn = new SqlConnection(DalSettings.ConnectionString))
+            {
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@Username", username);
+                    try
+                    {
+                        conn.Open();
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            return DalResult<bool>.Success(reader.HasRows);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        DalLogger.Log(ex, $"Username = {username}");
+                        return DalResult<bool>.Failure(DalError.Error);
+                    }
+                }
+            }
+        }
     }
 }

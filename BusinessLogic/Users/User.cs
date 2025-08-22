@@ -88,6 +88,37 @@ namespace BusinessLogic.Users
             // Authintaction successfull:
             return BllResult<int>.Success(loginRes.Value.UserID);
         }
+        
+        /// <summary>
+        /// Creates User domain object
+        /// </summary>
+        /// <param name="userID"></param>
+        /// <param name="userDto"></param>
+        /// <returns></returns>
+        private static User _MapToUser(int userID, UserDto userDto)
+        {
+            return new User(
+                userID: userID,
+                username: userDto.Username,
+                registeredAt: userDto.RegisteredAt,
+                currentBalance: userDto.CurrentBalance
+                );
+        }
+
+        /// <summary>
+        /// Creates UserDto object as a new user with the given username
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns></returns>
+        private static UserDto _CreateUserDtoForRegistration(string username)
+        {
+            return new UserDto(
+                userId: -1, 
+                username: username, 
+                registeredAt: DateTime.Now, 
+                currentBalance: 0);
+        }
+        
 
         /// <summary>
         /// Retrieves user's safe information
@@ -142,6 +173,32 @@ namespace BusinessLogic.Users
             User user = userRes.Value; // for clarity
             return BllResult<User>.Success(user);
 
+        }
+
+        /// <summary>
+        /// Registers a new user in the system with username and password.
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="rawPassword"></param>
+        /// <returns><see cref="BllResult{T}"/> object contains <see cref="User"/> object</returns>
+        public static BllResult<User> Register(string username, string rawPassword)
+        {
+            // Ensure valid login credentials:
+            BllError? validationError = UserValidator.ValidateRegisterRules(username, rawPassword);
+            if (validationError.HasValue)
+                return BllResult<User>.Failure(validationError.Value);
+
+            // Prepare new user info:
+            UserDto userDto = _CreateUserDtoForRegistration(username);
+            string passwordHash = BCrypt.Net.BCrypt.HashPassword(rawPassword);
+
+            // Add New user to database:
+            DalResult<int> addRes = UserDal.AddNewUser(userDto, passwordHash);
+            if (!addRes.IsSuccess)
+                return BllResult<User>.Failure(BllError.Error);
+
+            // return User object with safe info:
+            return BllResult<User>.Success(_MapToUser(addRes.Value, userDto));
         }
     }
 }
