@@ -13,5 +13,6 @@ namespace BusinessLogic
         InvalidUsername,
         TooLongPassword,
         TooShortPassword,
+        WrongUsernameOrPassword,
     }
 }
