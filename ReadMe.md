@@ -52,7 +52,7 @@ The application uses a relational database with four tables, focusing on simplic
 * Positive amount -> Transaction is considered an **income** -> can not link to an expense category (enforced by constraint).
 
 ![Database ERD Diagram](Docs/Database%20Design/ERD.drawio.svg)
-For more details about database design, see [Database Documentation](Docs/Database%20Design/Database%20Documentation.md)
+For more details about database design, see [Database Documentation](Docs/Database%20Design/Database%20Documentation.md).
 
 ---
 
@@ -80,8 +80,30 @@ Before running the project, make sure you have the following installed:
 
 ---
 
-## Installation Steps
-> *Coming soon with V1.0*.
+## Get Started
+Follow these steps to set up and run **Personal Finance Tracker** locally:
+
+1. **Clone the repository**
+```bash
+git clone https://github.com/code1999king/Personal-Finance-Tracker-Project.git
+cd Personal-Finance-Tracker-Project
+```
+2. **Open the solution**
+	* Launch **Visual Studio 2022**.
+	* Open `PersonalFinanceTracker.sln`.
+
+3. **Set up the database**
+	* Launch **SQL Server Management Studio (SSMS)**.
+	* Open a **New Query** tab and run the SQL scripts from the `DbScripts` project to create the database.
+	* :warning: **Important**: Follow the correct execution order as detailed in [Database Documentation](Docs/Database%20Design/Database%20Documentation.md).
+4. **Configure the database connection string**
+	* By default, the connection string in `App.config` expects a local SQL Server instance (`.`) and a database named `PFT_DB`.
+	* If your setup differs (e.g., different instance name, database name, or authentication mode), update the connectionStrings section in `App.config` accordingly.
+5. **Restore dependencies**
+	* Visual Studio will automatically restore NuGet packages (e.g., `BCrypt.Net-Next`) on build.
+6. **Build and run the application**
+	* Set the **Presentation** project as the startup project.
+	* Press **F5** (or click ? Run) to launch the application.
 
 ---
 
