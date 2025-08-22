@@ -51,7 +51,7 @@ namespace BusinessLogic
         /// </summary>
         /// <param name="error">The error code to include in the failed result.</param>
         /// <returns>A <see cref="BllResult{T}"/> object represents a failure operation, and contains the specified error. If the error was not specified, the default error is 'BllError.Error'</returns>
-        public static BllResult<T> Failure(BllError error = BllError.Error)
+        public static BllResult<T> Failure(BllError? error = BllError.Error)
         {
             return new BllResult<T>(false, default(T), error);
         }

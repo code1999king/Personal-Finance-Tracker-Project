@@ -13,7 +13,7 @@ namespace BusinessLogic.Users
         /// Username must be between 3 and 30 characters long, cannot contain spaces, and cannot be null or whitespace.
         /// </summary>
         /// <param name="username"></param>
-        /// <returns></returns>
+        /// <returns><see cref="BllError"/> object contains error code, or null if validation was successfull</returns>
         public static BllError? ValidateUsername(string username)
         {
             bool isValidUsername = !string.IsNullOrWhiteSpace(username) // Not null or whitespace
@@ -28,7 +28,7 @@ namespace BusinessLogic.Users
         /// Password must be at least 8 characters long, cannot be null or empty, and cannot exceed 72 bytes when encoded in UTF-8.
         /// </summary>
         /// <param name="password"></param>
-        /// <returns></returns>
+        /// <returns><see cref="BllError"/> object contains error code, or null if validation was successfull</returns>
         public static BllError? ValidateRawPassword(string password)
         {
             if (string.IsNullOrEmpty(password) || password.Length < 8) // minimum allowed length is 8 characters
@@ -43,6 +43,18 @@ namespace BusinessLogic.Users
             }
             
             return null;
+        }
+
+        /// <summary>
+        /// Validates username and raw password. It uses internally the following methods : <see cref="ValidateUsername(string)"/> and <see cref="ValidateRawPassword(string)"/>
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="rawPassword"></param>
+        /// <returns><see cref="BllError"/> object contains error code, or null if validation was successfull</returns>
+        public static BllError? ValidateLoginCredentials(string username, string rawPassword)
+        {
+            return ValidateUsername(username)
+                ?? ValidateRawPassword(rawPassword);
         }
     }
 }

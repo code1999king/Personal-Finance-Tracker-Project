@@ -11,8 +11,10 @@ namespace BusinessLogic
 
         // User errors:
         InvalidUsername,
+        InvalidUserID,
         TooLongPassword,
         TooShortPassword,
         WrongUsernameOrPassword,
+        UserNotFound,
     }
 }
