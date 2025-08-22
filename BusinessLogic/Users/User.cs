@@ -132,16 +132,16 @@ namespace BusinessLogic.Users
                 return BllResult<User>.Failure(BllError.InvalidUserID);
 
             // Retrieve user information:
-            DalResult<UserDto> userRes = UserDal.GetUserByID(userID);
-            if(!userRes.IsSuccess)
+            DalResult<UserDto> getRes = UserDal.GetUserByID(userID);
+            if(!getRes.IsSuccess)
             {
-                if (userRes.Error == DalError.NotFound)
+                if (getRes.Error == DalError.NotFound)
                     return BllResult<User>.Failure(BllError.UserNotFound);
                 return BllResult<User>.Failure(BllError.Error);
             }
 
             // Create user object from Dto:
-            UserDto userDto = userRes.Value;
+            UserDto userDto = getRes.Value;
             User user = new User(userDto.UserID, userDto.Username, userDto.RegisteredAt, userDto.CurrentBalance);
             return BllResult<User>.Success(user);
         }
@@ -155,7 +155,7 @@ namespace BusinessLogic.Users
         public static BllResult<User> Login(string username, string rawPassword)
         {
             // Validate login credentials:
-            BllError? validationError = UserValidator.ValidateLoginCredentials(username, rawPassword);
+            BllError? validationError = UserRules.ValidateLoginCredentials(username, rawPassword);
             if (validationError.HasValue) 
                 return BllResult<User>.Failure(validationError.Value);
 
@@ -166,11 +166,11 @@ namespace BusinessLogic.Users
 
             // Retrieve safe user iformation from DAL:
             int userID = authRes.Value; // for clarity
-            BllResult<User> userRes = Find(userID);
-            if (!userRes.IsSuccess) 
+            BllResult<User> getRes = Find(userID);
+            if (!getRes.IsSuccess) 
                 return BllResult<User>.Failure(BllError.Error); // can't be not found!!
 
-            User user = userRes.Value; // for clarity
+            User user = getRes.Value; // for clarity
             return BllResult<User>.Success(user);
 
         }
@@ -184,7 +184,7 @@ namespace BusinessLogic.Users
         public static BllResult<User> Register(string username, string rawPassword)
         {
             // Ensure valid login credentials:
-            BllError? validationError = UserValidator.ValidateRegisterRules(username, rawPassword);
+            BllError? validationError = UserRules.ValidateRegisterRules(username, rawPassword);
             if (validationError.HasValue)
                 return BllResult<User>.Failure(validationError.Value);
 

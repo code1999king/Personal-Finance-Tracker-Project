@@ -7,9 +7,9 @@ using DataAccess.Users;
 namespace BusinessLogic.Users
 {
     /// <summary>
-    /// Contains static helper methods for user data validation.
+    /// Contains static helper methods for user validation/business rules.
     /// </summary>
-    internal class UserValidator
+    internal class UserRules
     {
         /// <summary>
         /// Username must be between 3 and 30 characters long, cannot contain spaces, and cannot be null or whitespace.
@@ -48,7 +48,7 @@ namespace BusinessLogic.Users
         }
 
         /// <summary>
-        /// Validates username and raw password. It uses internally the following methods : <see cref="ValidateUsername(string)"/> and <see cref="ValidateRawPassword(string)"/>
+        /// Username and password must be in correct format.
         /// </summary>
         /// <param name="username"></param>
         /// <param name="rawPassword"></param>
@@ -59,7 +59,12 @@ namespace BusinessLogic.Users
                 ?? ValidateRawPassword(rawPassword);
         }
 
-        public static BllError? _ValidateUsernameNotReserved(string username)
+        /// <summary>
+        /// Username musn't be reserved by other user in the system.
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns><see cref="BllError"/> object contains error code, or null if validation was successfull</returns>
+        public static BllError? ValidateUsernameNotReserved(string username)
         {
             DalResult<bool> existsRes = UserDal.ExistsByUsername(username);
             if (!existsRes.IsSuccess)
@@ -69,11 +74,17 @@ namespace BusinessLogic.Users
             return null;
         }
 
+        /// <summary>
+        /// Username and password must be in correct format, and username mustn't be reserved by other user in the system.
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="rawPassword"></param>
+        /// <returns></returns>
         public static BllError? ValidateRegisterRules(string username, string rawPassword)
         {
             return ValidateUsername(username)
                 ?? ValidateRawPassword(rawPassword)
-                ?? _ValidateUsernameNotReserved(username);
+                ?? ValidateUsernameNotReserved(username);
         }
     }
 }
