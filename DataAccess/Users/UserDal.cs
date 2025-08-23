@@ -57,8 +57,8 @@ namespace DataAccess.Users
         /// <returns><see cref="DalResult{T}"/> object contains the new ID of the user</returns>
         public static DalResult<int> AddNewUser(UserDto user, string passwordHash)
         {
-            string query = @"INSERT INTO Users(Username, PasswordHash, RegisteredAt, CurrentBalance
-                            VALUES(@Username, @PasswordHash, @RegisteredAt, @CurrentBalance;
+            string query = @"INSERT INTO Users(Username, PasswordHash, RegisteredAt, CurrentBalance)
+                            VALUES(@Username, @PasswordHash, @RegisteredAt, @CurrentBalance);
                             SELECT SCOPE_IDENTITY();";
             using (SqlConnection conn = new SqlConnection(DalSettings.ConnectionString))
             {
@@ -110,10 +110,10 @@ namespace DataAccess.Users
                         conn.Open();
                         using (SqlDataReader reader = cmd.ExecuteReader())
                         {
-                            if(reader.HasRows)
+                            if(reader.Read())
                             {
                                 int userID = (int)reader["UserID"];
-                                string passwordHash = (string)reader["PaswordHash"];
+                                string passwordHash = (string)reader["PasswordHash"];
                                 UserLoginDto userLoginDto = new UserLoginDto(userID, passwordHash);
                                 return DalResult<UserLoginDto>.Success(userLoginDto);
                             }

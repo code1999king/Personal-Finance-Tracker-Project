@@ -12,7 +12,7 @@ namespace DataAccess
         {
             get
             {
-                return ConfigurationManager.ConnectionStrings["PFT_CB"].ConnectionString;
+                return ConfigurationManager.ConnectionStrings["PFT_DB"].ConnectionString;
             }
         }
     }
