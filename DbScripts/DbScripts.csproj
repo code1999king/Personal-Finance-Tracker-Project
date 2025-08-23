@@ -49,6 +49,8 @@
     <Content Include="TablesWithConstraints\IncomeCategories.sql" />
     <Content Include="TablesWithConstraints\Transactions.sql" />
     <Content Include="TablesWithConstraints\Users.sql" />
+    <Content Include="TestData\UsersTestData.sql" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
