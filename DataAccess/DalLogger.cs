@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Net.NetworkInformation;
 using System.Runtime.CompilerServices;
 
 /// <summary>
 /// Logger for Data Access Layer (DAL) operations.
 /// </summary>
-public static class DalLogger
+internal static class DalLogger
 {
     /// <summary>
     /// It Logs exceptions and their additional information to console.
