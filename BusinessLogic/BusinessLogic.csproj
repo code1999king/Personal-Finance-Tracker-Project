@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BllError.cs" />
+    <Compile Include="BllLogger.cs" />
     <Compile Include="BllResult.cs" />
     <Compile Include="SaveMode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
