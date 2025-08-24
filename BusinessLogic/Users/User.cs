@@ -72,21 +72,22 @@ namespace BusinessLogic.Users
         /// <returns><see cref="BllResult{T}"/> object contains authenticated user ID</returns>
         private static BllResult<int> _Authenticate(string username, string rawPassword)
         {
+            string additionalLogInfo = $"Username = {username}, RawPassword = {rawPassword}";
             // Retrieve user login information from DAL:
             DalResult<UserLoginDto> loginRes = UserDal.GetUserLoginByUsername(username);
             if (!loginRes.IsSuccess)
             {
                 if (loginRes.Error == DalError.NotFound)
-                    return BllResult<int>.Failure(BllError.WrongUsernameOrPassword);
-                return BllResult<int>.Failure(BllError.Error);
+                    return BllResult<int>.Failure(BllError.WrongUsernameOrPassword).WithLogging(additionalLogInfo);
+                return BllResult<int>.Failure(BllError.Error).WithLogging(additionalLogInfo);
             }
 
             // Verify user password:
             if (!PasswordHasher.VerifyPassword(rawPassword, loginRes.Value.PasswordHash))
-                return BllResult<int>.Failure(BllError.WrongUsernameOrPassword);
+                return BllResult<int>.Failure(BllError.WrongUsernameOrPassword).WithLogging(additionalLogInfo);
 
             // Authintaction successfull:
-            return BllResult<int>.Success(loginRes.Value.UserID);
+            return BllResult<int>.Success(loginRes.Value.UserID).WithLogging(additionalLogInfo);
         }
 
         /// <summary>
@@ -142,21 +143,22 @@ namespace BusinessLogic.Users
         /// <returns><see cref="BllResult{T}"/> object contains <see cref="User"/> object</returns>
         public static BllResult<User> Find(int userID)
         {
+            string additionalLogInfo = $"UserID = {userID}";
             // Validate user identifier:
             if (userID < 1)
-                return BllResult<User>.Failure(BllError.InvalidUserID);
+                return BllResult<User>.Failure(BllError.InvalidUserID).WithLogging(additionalLogInfo);
 
             // Retrieve user information:
             DalResult<UserDto> getRes = UserDal.GetUserByID(userID);
             if(!getRes.IsSuccess)
             {
                 if (getRes.Error == DalError.NotFound)
-                    return BllResult<User>.Failure(BllError.UserNotFound);
-                return BllResult<User>.Failure(BllError.Error);
+                    return BllResult<User>.Failure(BllError.UserNotFound).WithLogging(additionalLogInfo);
+                return BllResult<User>.Failure(BllError.Error).WithLogging(additionalLogInfo);
             }
 
             // Create user object from Dto and return it:
-            return BllResult<User>.Success(_MapToUser(getRes.Value));
+            return BllResult<User>.Success(_MapToUser(getRes.Value)).WithLogging(additionalLogInfo);
         }
 
         /// <summary>
@@ -167,23 +169,24 @@ namespace BusinessLogic.Users
         /// <returns><see cref="BllResult{T}"/> object contains <see cref="User"/> object</returns>
         public static BllResult<User> Login(string username, string rawPassword)
         {
+            string additionalLogInfo = $"Username = {username}, RawPassword = {rawPassword}";
             // Validate login credentials:
             BllError? validationError = UserRules.ValidateLoginCredentials(username, rawPassword);
             if (validationError.HasValue) 
-                return BllResult<User>.Failure(validationError.Value);
+                return BllResult<User>.Failure(validationError.Value).WithLogging(additionalLogInfo);
 
             // Authenticate user:
             BllResult<int> authRes = _Authenticate(username, rawPassword);
             if (!authRes.IsSuccess)
-                return BllResult<User>.Failure(authRes.Error);
+                return BllResult<User>.Failure(authRes.Error).WithLogging(additionalLogInfo);
 
             // Retrieve safe user iformation from DAL:
             int userID = authRes.Value; // for clarity
             BllResult<User> getRes = Find(userID);
             if (!getRes.IsSuccess) 
-                return BllResult<User>.Failure(BllError.Error); // can't be not found!!
+                return BllResult<User>.Failure(BllError.Error).WithLogging(additionalLogInfo); // can't be not found!!
 
-            return BllResult<User>.Success(getRes.Value);
+            return BllResult<User>.Success(getRes.Value).WithLogging(additionalLogInfo);
 
         }
 
@@ -195,10 +198,11 @@ namespace BusinessLogic.Users
         /// <returns><see cref="BllResult{T}"/> object contains <see cref="User"/> object</returns>
         public static BllResult<User> Register(string username, string rawPassword)
         {
+            string additionalLogInfo = $"Username = {username}, RawPassword = {rawPassword}";
             // Ensure valid login credentials:
             BllError? validationError = UserRules.ValidateRegisterRules(username, rawPassword);
             if (validationError.HasValue)
-                return BllResult<User>.Failure(validationError.Value);
+                return BllResult<User>.Failure(validationError.Value).WithLogging(additionalLogInfo);
 
             // Prepare new user info:
             UserDto userDto = _CreateUserDtoForRegistration(username);
@@ -207,10 +211,10 @@ namespace BusinessLogic.Users
             // Add New user to database:
             DalResult<int> addRes = UserDal.AddNewUser(userDto, passwordHash);
             if (!addRes.IsSuccess)
-                return BllResult<User>.Failure(BllError.Error);
+                return BllResult<User>.Failure(BllError.Error).WithLogging(additionalLogInfo);
 
             // return User object with safe info:
-            return BllResult<User>.Success(_MapToUser(addRes.Value, userDto));
+            return BllResult<User>.Success(_MapToUser(addRes.Value, userDto)).WithLogging(additionalLogInfo);
         }
     }
 }
