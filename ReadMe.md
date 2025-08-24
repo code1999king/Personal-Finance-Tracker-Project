@@ -10,7 +10,7 @@ helps individuals manage and track their balance and financial transactions.
 ---
 
 ## Key Features
-- [ ] Security : User password hashing using `BCrypt`.
+- [x] Security : User password hashing using `BCrypt`.
 - [ ] User Authentication : Register and login functionality.
 - [ ] Organization : Users can organize their expenses and incomes using categories.
 - [ ] Full Management : Users can add, edit, delete, and view expenses and incomes and their categories.
