@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.NetworkInformation;
 using System.Runtime.CompilerServices;
 
 /// <summary>
@@ -25,12 +26,19 @@ public static class DalLogger
     {
         string className = System.IO.Path.GetFileNameWithoutExtension(filePath);
 
-        string logMessage = $"||{DateTime.Now:yyyy-MM-dd HH:mm:ss} " +
-                            $"||Class: {className}, " +
-                            $"||Method: {memberName}, " +
-                            $"||Line: {lineNumber}, " +
-                            $"||Exception: {ex?.ToString() ?? "No exception"}, " +
-                            $"||Additional Info: {additionalInfo}";
+        string logMessage = $"||DAL||, " +
+                            $"Date: {DateTime.Now:yyyy-MM-dd HH:mm:ss}, " +
+                            $"In {className}.{memberName} at line {lineNumber}, " +
+                            $"Additional Info: {additionalInfo}, " +
+                            $"Exception: {ex?.Message ?? "No Exception"}";
+
+        // old format:
+        //string logMessage = $"||{DateTime.Now:yyyy-MM-dd HH:mm:ss} " +
+        //                    $"||Class: {className}, " +
+        //                    $"||Method: {memberName}, " +
+        //                    $"||Line: {lineNumber}, " +
+        //                    $"||Exception: {ex?.ToString() ?? "No exception"}, " +
+        //                    $"||Additional Info: {additionalInfo}";
 
         // for now we log to console : (will log to file later on)
         Console.WriteLine(logMessage);

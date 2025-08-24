@@ -24,11 +24,7 @@ namespace BusinessLogic
             [CallerFilePath] string filePath = "",
             [CallerLineNumber] int lineNumber = 0)
         {
-            // Control the log message based on result status :
-            if(result.IsSuccess)
-                BllLogger.Log(null, $"Success, {additionalInfo}", memberName, filePath, lineNumber);
-            else
-                BllLogger.Log(ex, $"Failure = {result.Error.ToString()}, {additionalInfo}", memberName, filePath, lineNumber);
+            BllLogger.Log(ex, result.Error, additionalInfo, memberName, filePath, lineNumber);
             return result;
         }
     }
