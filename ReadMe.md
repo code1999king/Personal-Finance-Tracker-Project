@@ -64,7 +64,8 @@ For more details about database design, see [Database Documentation](Docs/Databa
 * **Comprehensive error handling and logging**.
 * **Secure resource management** (automatic disposal of database connections and unmanaged resources).
 
-> *More documentation will be provided during project developement*;
+For more details about data access layer design, see [DAL Documentation](Docs/DAL%20Design/DAL%20Documentation.md).
+
 
 ---
 
@@ -95,7 +96,7 @@ cd Personal-Finance-Tracker-Project
 3. **Set up the database**
 	* Launch **SQL Server Management Studio (SSMS)**.
 	* Open a **New Query** tab and run the SQL scripts from the `DbScripts` project to create the database.
-	* :warning: **Important**: Follow the correct execution order as detailed in [Database Documentation](Docs/Database%20Design/Database%20Documentation.md).
+	* :warning: **Important**: Follow the correct execution order as detailed in [Database Documentation](Docs/Database%20Design/Database%20Documentation.md##scripts-execution-order).
 4. **Configure the database connection string**
 	* By default, the connection string in `App.config` expects a local SQL Server instance (`.`) and a database named `PFT_DB`.
 	* If your setup differs (e.g., different instance name, database name, or authentication mode), update the connectionStrings section in `App.config` accordingly.
