@@ -1,6 +1,6 @@
-﻿namespace Presentation
+﻿namespace Presentation.TestForms
 {
-    partial class TestForm
+    partial class UserLoginRegisterTest
     {
         /// <summary>
         /// Required designer variable.

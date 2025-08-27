@@ -2,11 +2,11 @@
 using BusinessLogic;
 using BusinessLogic.Users;
 
-namespace Presentation
+namespace Presentation.TestForms
 {
-    public partial class TestForm : Form
+    public partial class UserLoginRegisterTest : Form
     {
-        public TestForm()
+        public UserLoginRegisterTest()
         {
             InitializeComponent();
         }
