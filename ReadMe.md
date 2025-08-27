@@ -56,16 +56,27 @@ For more details about database design, see [Database Documentation](Docs/Databa
 
 ---
 
-## Data Access Layer Design
-**Data Access Layer (DAL)** represents the bridge between the application and database, which contains the required CRUD methods.
+## Data Access Layer (DAL)
+The **Data Access Layer** acts as the bridge between the application and the database, providing structured and reliable CRUD operations.
 
-**Key features:**
-* **Elegant output contract** (Standarized operation results via DalResult class).
-* **Comprehensive error handling and logging**.
-* **Secure resource management** (automatic disposal of database connections and unmanaged resources).
+**Key design highlights:**
+* **Standardized results** using a unified DalResult contract.
+* **Robust error handling and logging** for easier debugging and monitoring.
+* **Secure resource management** with automatic disposal of connections and unmanaged resources.
 
-For more details about data access layer design, see [DAL Documentation](Docs/DAL%20Design/DAL%20Documentation.md).
+[Read the full DAL documentation](Docs/DAL%20Design/DAL%20Documentation.md).
 
+---
+
+## Business Logic Layer (BLL)
+The **Business Logic Layer** encapsulates the core application rules and exposes a clean, developer-friendly interface for the presentation layer.
+
+**Key design highlights:**
+* **Standardized results** through the BllResult contract.
+* **Consistent error handling and logging** across all operations.
+* **Frontend-friendly design** with simple, real-world abstractions that are easy to integrate.
+
+[Read the full BLL documentation](Docs/BLL%20Design/BLL%20Documentation.md).
 
 ---
 

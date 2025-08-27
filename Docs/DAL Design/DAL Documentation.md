@@ -37,8 +37,8 @@ Examples:
 
 # Naming Conventions
 * **Core classes:** Named as `Dal<Purpose>`.
-	* `DalSettings` Contains DAL settings.
-	* `DalResult` Represents DAL result definition.
+	* `DalSettings` -> Contains DAL settings.
+	* `DalResult` -> Represents DAL result definition.
 
 * **DAL classes:** Named as `<EntityName>Dal`. Contains CRUD operations for the corresponding table.
 	* `UserDal` -> CRUD operations for the `Users` table.
