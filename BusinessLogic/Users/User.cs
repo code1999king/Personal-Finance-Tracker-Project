@@ -12,9 +12,9 @@ namespace BusinessLogic.Users
     {
         /// <summary>
         /// User's save mode.
-        /// See <see cref="SaveMode"/> for more details."/>
+        /// See <see cref="BllSaveMode"/> for more details."/>
         /// </summary>
-        private SaveMode _SaveMode { get; set; }
+        private BllSaveMode _SaveMode { get; set; }
 
         /// <summary>
         /// User's identifier.
@@ -41,7 +41,7 @@ namespace BusinessLogic.Users
         /// </summary>
         public User()
         {
-            _SaveMode = SaveMode.AddNew;
+            _SaveMode = BllSaveMode.AddNew;
             UserID = -1;
             Username = "";
             RegisteredAt = DateTime.Now;
@@ -57,7 +57,7 @@ namespace BusinessLogic.Users
         /// <param name="currentBalance"></param>
         private User(int userID, string username, DateTime registeredAt, decimal currentBalance)
         {
-            _SaveMode = SaveMode.Update;
+            _SaveMode = BllSaveMode.Update;
             UserID = userID;
             Username = username;
             RegisteredAt = registeredAt;
