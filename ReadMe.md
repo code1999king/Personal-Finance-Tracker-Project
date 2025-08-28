@@ -80,6 +80,11 @@ The **Business Logic Layer** encapsulates the core application rules and exposes
 
 ---
 
+## Developement Challenges
+* [Validation Preventing Form Closure in WinForms](Docs/Developement%20Challenges/ValidationPreventingFormClosure.md).  
+
+---
+
 ## Prerequisites
 Before running the project, make sure you have the following installed:
 - **Windows 10**
