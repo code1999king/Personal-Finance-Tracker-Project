@@ -46,6 +46,10 @@
     <Compile Include="DalLogger.cs" />
     <Compile Include="DalResult.cs" />
     <Compile Include="DalSettings.cs" />
+    <Compile Include="ExpenseCategories\ExpenseCategoryDal.cs" />
+    <Compile Include="ExpenseCategories\ExpenseCategoryDto.cs" />
+    <Compile Include="IncomeCategories\IncomeCategoryDal.cs" />
+    <Compile Include="IncomeCategories\IncomeCategoryDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Users\UserDal.cs" />
     <Compile Include="Users\UserDto.cs" />
