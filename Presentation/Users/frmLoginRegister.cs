@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using BusinessLogic;
 using BusinessLogic.Users;
+using Presentation.ExtensionMethods;
 
 namespace Presentation.Users
 {
@@ -90,7 +91,12 @@ namespace Presentation.Users
 
         private void btnLoginRegister_Click(object sender, EventArgs e)
         {
-            if (!this.ValidateChildren(ValidationConstraints.Visible)) return;
+            this.ValidateChildren(ValidationConstraints.Visible); // Trigger Validating events for visible controls
+            if (errorProvider1.HasErrors(this))
+            {
+                Util.ShowError("There are invalid inputs");
+                return;
+            }
 
             switch(authMode)
             {
@@ -108,7 +114,6 @@ namespace Presentation.Users
             if(string.IsNullOrEmpty(txtUsername.Text))
             {
                 errorProvider1.SetError(txtUsername, "Username is required");
-                e.Cancel = true;
             }
             else
             {
@@ -121,7 +126,6 @@ namespace Presentation.Users
             if (string.IsNullOrEmpty(txtPassword.Text))
             {
                 errorProvider1.SetError(txtPassword, "Password is required");
-                e.Cancel = true;
             }
             else
             {
@@ -134,7 +138,6 @@ namespace Presentation.Users
             if (txtConfirmPassword.Text != txtPassword.Text)
             {
                 errorProvider1.SetError(txtConfirmPassword, "Confirmation password does not match password");
-                e.Cancel = true;
             }
             else
             {
@@ -142,14 +145,5 @@ namespace Presentation.Users
             }
         }
 
-        private void frmLoginRegister_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            
-        }
-
-        private void frmLoginRegister_Validating(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            //MessageBox.Show("form validating");
-        }
     }
 }

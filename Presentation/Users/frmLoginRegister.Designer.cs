@@ -165,8 +165,6 @@
             this.Name = "frmLoginRegister";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Login/Register to Personal Finance Tracker";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmLoginRegister_FormClosing);
-            this.Validating += new System.ComponentModel.CancelEventHandler(this.frmLoginRegister_Validating);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
