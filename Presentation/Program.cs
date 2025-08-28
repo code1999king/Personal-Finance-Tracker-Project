@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using Presentation.TestForms;
+using Presentation.Users;
 
 namespace Presentation
 {
@@ -14,7 +15,7 @@ namespace Presentation
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new UserLoginRegisterTest());
+            Application.Run(new frmLoginRegister());
         }
     }
 }
